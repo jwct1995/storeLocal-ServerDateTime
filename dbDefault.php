@@ -1,9 +1,7 @@
 <?php
+include "dbInfo.php";
 
-$Host = "localhost";
-$User = "129751";
-$Pass = "soo12345";
-$dbName = "129751";
+
 
 $conn=new mysqli($Host,$User,$Pass);
 if($conn->connect_error)
