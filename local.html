@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>Title</title>
+
+</head>
+<body>
+<center>
+	<div id="divc"></div>
+	<div id="divt"></div>
+	<div id="divu"></div>
+</center>
+
+
+	<br>
+	<br>
+	Demo :
+	<a href="http://jwct95.freevar.com/code/storeLocal&ServerDateTime/local.html">
+		http://jwct95.freevar.com/code/storeLocal&ServerDateTime/local.html</a>
+
+<script>
+$(function()
+{
+	printDT();
+});
+
+
+var x=0;
+const interval = setInterval(function()
+{
+	var c=5-x;
+	$("#divc").html("call after "+c+" second");
+	if (x >= 5)
+	{
+		x=0
+		printDT();
+		AjaxUpload(getDT());
+	}
+	x++;
+
+}, 1000);
+
+//clearInterval(x);
+
+function printDT()
+{
+	$("#divt").html(getDT());
+}
+function getDT()
+{
+	var d = new Date();
+	var dd=d.getDate();
+	var mmm=d.getMonth() + 1;
+	var yy=d.getFullYear();
+	var hh=d.getHours();
+	var mm=d.getMinutes();
+	var ss=d.getSeconds();
+
+	if(dd<10){dd = '0'+dd}
+
+	if(mmm<10){mmm = '0'+mmm}
+
+	if(hh<10){hh = '0'+hh}
+	if(mm<10){mm = '0'+mm}
+	if(ss<10){ss = '0'+ss}
+
+	var datetime=yy+"/"+mmm+"/"+dd+"  "+hh+":"+mm+":"+ss;
+
+	//return new Date();
+	return datetime;
+}
+
+function AjaxUpload(localDT)
+{
+	var rtn="";
+	$.ajax(
+    {
+        type:"POST",
+        dataType:"json",
+        url:"server.php",
+        data:{post:"uploadDT",lDT:localDT},//
+        async:false,
+        beforeSend: function()
+        {},
+        complete:function()
+        {},
+        success: function (data)
+        {
+			$("#divu").html("Uploaded "+ localDT);
+		},
+        error: function ()
+        {
+
+        },
+    });
+	return rtn;
+}
+
+
+
+</script>
+</body>
+</html>

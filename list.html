@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>Title</title>
+
+</head>
+
+<style>
+table, th, td
+{
+  border: 1px solid black;
+}
+
+tr:nth-child(even)
+{
+	background-color:#b3b3b340;
+}
+tr:nth-child(odd)
+{
+	background-color:#92b9ff;
+}
+</style>
+
+<body>
+
+<center>
+	<table id="tablelist" style="width:400px;"></table>
+</center>
+
+
+	<br>
+	<br>
+	Demo :
+	<a href="http://jwct95.freevar.com/code/storeLocal&ServerDateTime/list.html">
+		http://jwct95.freevar.com/code/storeLocal&ServerDateTime/list.html</a>
+
+<script>
+var dtList=new Array();
+
+$(function()
+{
+	dtList=AjaxGetList();
+	dtList.forEach(function(ele)
+	{
+		//ele.lDT
+		//ele.sDT
+		var table=$("#tablelist");
+	    var tr=$("<tr></tr>");
+		table.append(tr);
+		var td1=$("<td></td>");
+		td1.text(ele.lDT);
+		tr.append(td1);
+		var td2=$("<td></td>");
+		td2.text(ele.sDT);
+		tr.append(td2);
+	});
+
+
+
+
+});
+
+function AjaxGetList()
+{
+	var rtn;
+	$.ajax(
+    {
+        type:"POST",
+        dataType:"json",
+        url:"server.php",
+        data:{post:"getList"},//
+        async:false,
+        beforeSend: function()
+        {},
+        complete:function()
+        {},
+        success: function (data)
+        {
+			rtn=data;
+		},
+        error: function ()
+        {
+
+        },
+    });
+	return rtn;
+}
+
+
+
+</script>
+</body>
+</html>
